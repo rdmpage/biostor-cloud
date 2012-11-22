@@ -7,6 +7,9 @@ require_once (dirname(__FILE__) . '/reference.php');
 //--------------------------------------------------------------------------------------------------
 function default_display()
 {
+	global $config;
+	global $couch;
+	
     $template = <<<EOT
 <!DOCTYPE html>
 	<html>
@@ -64,6 +67,7 @@ function default_display()
       <div class="hero-unit">
         <h1>BioStor in the cloud</h1>
         <p class="lead">Experiments with putting BioStor content in the cloud. <a href="?q=new species">Try it</a></p>
+        <h3><COUNT> publications</h3>
       </div>
 
  <!-- Example row of columns -->
@@ -133,6 +137,19 @@ function default_display()
 		</body>
 	</html>
 EOT;
+
+	
+	$resp = $couch->send("GET", "/" . $config['couchdb_options']['database'] . "/_design/count/_view/biostor");
+	$result = json_decode($resp);
+	if (isset($result->error))
+	{
+	}
+	else
+	{
+		$template = str_replace('<COUNT>', $result->rows[0]->value, $template);
+	}
+	
+	
 
 	echo $template;
 
@@ -399,6 +416,8 @@ function display_record($id)
 <!--						<li><a href="http://<DOI>" target="_new"><i class="icon-external-link"></i><DOI></a></li> -->
 						</ul>
 						
+						<COINS>
+						
 						<h5><i class="icon-bullhorn"></i>Cite</h5>
 						
 						
@@ -491,6 +510,7 @@ EOT;
 	$template = str_replace('<ID>', $id, $template);
 	$template = str_replace('<BIBDATA>', $bibdata_json, $template);
 	$template = str_replace('<TITLE>', $reference->title, $template);
+	$template = str_replace('<COINS>', reference_to_coins($reference->title), $template);
 	
 	foreach ($reference->identifier as $identifier)
 	{

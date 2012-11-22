@@ -517,10 +517,12 @@ EOT;
 }
 
 //--------------------------------------------------------------------------------------------------
-function display_search($text, $format = 'html')
+function display_search($text, $bookmark = '')
 {
 	global $couch;
 	global $config;
+	
+	$rows_per_page = 10;
 	
 	$q = $text;
 	$q = str_replace(':', ',' , $q);
@@ -534,8 +536,14 @@ function display_search($text, $format = 'html')
 	}
 	else
 	{		
-		$rows_per_page = 10;
+		
 		$url = '/_design/citation/_search/all?q=' . urlencode($q) . '&limit=' . $rows_per_page . '&include_docs=true';
+		
+		if ($bookmark != '')
+		{
+			$url .= '&bookmark=' . $bookmark;
+		}
+		
 		$resp = $couch->send("GET", "/" . $config['couchdb_options']['database'] . "/" . $url);
 		$obj = json_decode($resp);
 	}
@@ -602,7 +610,16 @@ echo '<!DOCTYPE html>
 	$total_rows = $obj->total_rows;
 	$bookmark = $obj->bookmark;
 	
-	echo '<h3>' . $total_rows . ' hit(s)' . '</h3>';	
+	echo '<h3>' . $total_rows . ' hit(s)' . '</h3>';
+	
+	
+	if ($total_rows > $rows_per_page)
+	{
+		echo '<p><a class="btn" href="?q=' . urlencode($q) . '&bookmark=' . $bookmark . '">More »</a></p>';
+	}
+	
+	//echo '<p>' . "Bookmark=$bookmark " . '<a href="?q=' . urlencode($q) . '&bookmark=' . $bookmark . '">more</a>' . '</p>';
+	
 	
 	echo '<table class="table">';
 	echo '<thead>';
@@ -720,6 +737,12 @@ echo '<!DOCTYPE html>
 	echo '</tbody>';
 	echo '</table>';
 	
+	if ($total_rows > $rows_per_page)
+	{
+		echo '<p><a class="btn" href="?q=' . urlencode($q) . '&bookmark=' . $bookmark . '">More »</a></p>';
+	}
+	
+	
 	echo '</div>
 </body>
 </html>';	
@@ -731,6 +754,7 @@ echo '<!DOCTYPE html>
 function main()
 {	
 	$query = '';
+	$bookmark = '';
 		
 	// If no query parameters 
 	if (count($_GET) == 0)
@@ -749,7 +773,12 @@ function main()
 	if (isset($_GET['q']))
 	{	
 		$query = $_GET['q'];
-		display_search($query);
+		
+		if (isset($_GET['bookmark']))
+		{
+			$bookmark = $_GET['bookmark'];
+		}
+		display_search($query, $bookmark);
 		exit(0);
 	}	
 	

@@ -431,16 +431,16 @@ function display_record($id)
 							
 							<div class="tab-content">
 								<div class="tab-pane active" id="tab1">
-									<div id="zootaxa">
-									</div>	
+									<pre id="zootaxa">
+									</pre>	
 								</div>
 								<div class="tab-pane" id="tab2">
-									<div id="zookeys">
-									</div>	
+									<pre id="zookeys">
+									</pre>	
 								</div>
 								<div class="tab-pane" id="tab3">
-									<div id="bibtex">
-									</div>	
+									<pre id="bibtex">
+									</pre>	
 								</div>
 							</div>
 						</div>

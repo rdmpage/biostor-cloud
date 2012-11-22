@@ -1,0 +1,22 @@
+RewriteEngine On
+
+# Some hosts may require you to use the `RewriteBase` directive.
+# If you need to use the `RewriteBase` directive, it should be the
+# absolute physical path to the directory that contains this htaccess file.
+#
+RewriteBase /~rpage/biostor-cloud/
+
+# Object
+RewriteRule ^id/(.*)   index.php?id=$1 [NC,L]
+
+# BioStor
+RewriteRule ^biostor/(.*)   index.php?biostor=$1 [NC,L]
+
+# DOI
+RewriteRule ^doi/(.*)   index.php?doi=$1 [NC,L]
+
+# Author name
+RewriteRule ^author/(.*)   index.php?author=$1 [NC,L]
+
+# Taxon name
+RewriteRule ^name/(.*)   index.php?name=$1 [NC,L]

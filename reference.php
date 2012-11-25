@@ -247,7 +247,7 @@ function reference_to_openurl($reference)
 			if (isset($reference->author[0]->lastname))
 			{
 				$openurl .= '&amp;rft.aulast=' . urlencode($reference->author[0]->lastname);
-				if ($reference->author[0]->firstname)
+				if (isset($reference->author[0]->firstname))
 				{
 					$openurl .= '&amp;rft.aufirst=' . urlencode($reference->author[0]->firstname);
 				}

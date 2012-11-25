@@ -174,7 +174,7 @@ function reference_to_openurl($reference)
 	$openurl .= 'ctx_ver=Z39.88-2004';
 
 	// Local publication identifier
-	if ($reference->id)
+	if (isset($reference->id))
 	{
 		$openurl .= '&amp;rfe_id=' . urlencode($reference->id);
 	}

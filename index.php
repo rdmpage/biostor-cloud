@@ -566,6 +566,9 @@ function display_search($text, $bookmark = '')
 		
 		$resp = $couch->send("GET", "/" . $config['couchdb_options']['database'] . "/" . $url);
 		$obj = json_decode($resp);
+		
+		echo $config['couchdb_options']['database'] . $url;
+		exit();
 	}
 	
 echo '<!DOCTYPE html>

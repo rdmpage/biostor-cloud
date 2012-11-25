@@ -113,7 +113,7 @@ function reference_to_citeprocjs($reference, $id = 'ITEM-1')
 	{
 		$citeproc_obj['container-title'] = $reference->journal->name;
 		$citeproc_obj['volume'] = $reference->journal->volume;
-		if ($reference->journal->issue)
+		if (isset($reference->journal->issue))
 		{
 			$citeproc_obj['issue'] = $reference->journal->issue;
 		}
@@ -174,7 +174,10 @@ function reference_to_openurl($reference)
 	$openurl .= 'ctx_ver=Z39.88-2004';
 
 	// Local publication identifier
-	$openurl .= '&amp;rfe_id=' . urlencode($reference->id);
+	if ($reference->id)
+	{
+		$openurl .= '&amp;rfe_id=' . urlencode($reference->id);
+	}
 	
 	//print_r($reference);
 	
@@ -242,7 +245,7 @@ function reference_to_openurl($reference)
 		if (count($reference->author) > 0)
 		{
 			$openurl .= '&amp;rft.aulast=' . urlencode($reference->author[0]->lastname);
-			$openurl .= '&amp;rft.aufirst=' . urlencode($reference->author[0]->firstname);
+			$openurl .= '&amp;rft.aufirst=' . urlencode($reference->author[0]->forename);
 		}
 		foreach ($reference->author as $author)
 		{
@@ -282,9 +285,12 @@ function reference_to_openurl($reference)
 	{
 		foreach ($reference->link as $link)
 		{
-			if ($link->anchor == 'LINK')
+			if (isset($link->anchor))
 			{
-				$openurl .= '&amp;rft_id='. urlencode($link->url);
+				if ($link->anchor == 'LINK')
+				{
+					$openurl .= '&amp;rft_id='. urlencode($link->url);
+				}
 			}
 		}
 	}

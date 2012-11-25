@@ -510,7 +510,7 @@ EOT;
 	$template = str_replace('<ID>', $id, $template);
 	$template = str_replace('<BIBDATA>', $bibdata_json, $template);
 	$template = str_replace('<TITLE>', $reference->title, $template);
-	$template = str_replace('<COINS>', reference_to_coins($reference->title), $template);
+	$template = str_replace('<COINS>', reference_to_coins($reference), $template);
 	
 	foreach ($reference->identifier as $identifier)
 	{

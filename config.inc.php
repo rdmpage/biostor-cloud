@@ -15,12 +15,12 @@ global $config;
 date_default_timezone_set('UTC');
 
 // Server-------------------------------------------------------------------------------------------
-$config['web_server']	= 'http://localhost'; 
+$config['web_server']	= 'http://biostor-cloud.pagodabox.com'; 
 $config['site_name']	= 'BioStor in the cloud';
 
 // Files--------------------------------------------------------------------------------------------
 $config['web_dir']		= dirname(__FILE__);
-$config['web_root']		= '/~rpage/biostor-cloud/';
+$config['web_root']		= '/';
 
 
 // Proxy settings for connecting to the web--------------------------------------------------------- 
@@ -43,7 +43,7 @@ $config['couchdb_options'] = array(
 // Cloudant
 $config['couchdb_options'] = array(
 		'database' => '<database>',
-		'host' => '<username>:<password>@rdmpage.cloudant.com',
+		'host' => 'rdmpage:peacrab@rdmpage.cloudant.com',
 		'port' => 5984
 		);
 

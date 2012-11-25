@@ -19,9 +19,9 @@ function reference_to_citation_string($reference)
 		$authors = array();
 		foreach ($reference->author as $author)
 		{
-			if (isset($author->forename))
+			if (isset($author->firstname))
 			{
-				$authors[] = $author->lastname . ' ' . $author->forename;
+				$authors[] = $author->lastname . ' ' . $author->firstname;
 			}
 			else
 			{
@@ -96,9 +96,9 @@ function reference_to_citeprocjs($reference, $id = 'ITEM-1')
 		foreach ($reference->author as $author)
 		{
 			$a = new stdclass;
-			if (isset($author->forename))
+			if (isset($author->firstname))
 			{
-				$a->given = $author->forename;
+				$a->given = $author->firstname;
 				$a->family = $author->lastname;
 			}
 			else
@@ -244,8 +244,14 @@ function reference_to_openurl($reference)
 	{
 		if (count($reference->author) > 0)
 		{
-			$openurl .= '&amp;rft.aulast=' . urlencode($reference->author[0]->lastname);
-			$openurl .= '&amp;rft.aufirst=' . urlencode($reference->author[0]->forename);
+			if (isset($reference->author[0]->lastname))
+			{
+				$openurl .= '&amp;rft.aulast=' . urlencode($reference->author[0]->lastname);
+				if ($reference->author[0]->firstname)
+				{
+					$openurl .= '&amp;rft.aufirst=' . urlencode($reference->author[0]->firstname);
+				}
+			}
 		}
 		foreach ($reference->author as $author)
 		{

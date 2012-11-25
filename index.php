@@ -737,20 +737,23 @@ echo '<!DOCTYPE html>
 		
 		//echo '<a href="">cite</a>';
 				
-		foreach ($reference->identifier as $identifier)
+		if ($reference->identifier)
 		{
-			switch ($identifier->type)
+			foreach ($reference->identifier as $identifier)
 			{
-				case 'biostor':
-					echo '<a href="http://biostor.org/reference/' . $identifier->id . '" target="_new"><i class="icon-external-link"></i>biostor.org/reference/' . $identifier->id . '</a></li>';
-					break;
-
-				case 'doi':
-					echo '<a href="http://dx.doi.org/' . $identifier->id . '" target="_new"><i class="icon-external-link"></i>doi.dx.org' . $identifier->id . '</a></li>';
-					break;
-					
-				default:
-					break;
+				switch ($identifier->type)
+				{
+					case 'biostor':
+						echo '<a href="http://biostor.org/reference/' . $identifier->id . '" target="_new"><i class="icon-external-link"></i>biostor.org/reference/' . $identifier->id . '</a></li>';
+						break;
+	
+					case 'doi':
+						echo '<a href="http://dx.doi.org/' . $identifier->id . '" target="_new"><i class="icon-external-link"></i>doi.dx.org' . $identifier->id . '</a></li>';
+						break;
+						
+					default:
+						break;
+				}
 			}
 		}
 		echo '</div>';

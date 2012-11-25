@@ -737,7 +737,7 @@ echo '<!DOCTYPE html>
 		
 		//echo '<a href="">cite</a>';
 				
-		if ($reference->identifier)
+		if (isset($reference->identifier))
 		{
 			foreach ($reference->identifier as $identifier)
 			{

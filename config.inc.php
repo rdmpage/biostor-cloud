@@ -34,15 +34,17 @@ $config['proxy_port'] 	= '';
 // CouchDB------------------------------------------------------------------------------------------
 
 // local CouchDB
+/*
 $config['couchdb_options'] = array(
-		'database' => '<database>',
+		'database' => 'biostor',
 		'host' => 'localhost',
 		'port' => 5984
 		);
+*/
 
 // Cloudant
 $config['couchdb_options'] = array(
-		'database' => '<database>',
+		'database' => 'biostor',
 		'host' => 'rdmpage:peacrab@rdmpage.cloudant.com',
 		'port' => 5984
 		);

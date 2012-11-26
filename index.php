@@ -218,7 +218,7 @@ function display_page($page)
       	
 		<tr><td><img src="images/BHL_Small_Logo.jpg" style="width:64px;" /></td><td>Page scans from BHL</td></tr>
 
-		<tr><td><img src="images/logo_gallica.jpg" style="width:64px;" /></td><td>Page scans from <a href="http://gallica.bnf.fr/">Gallica</a></td></tr>
+		<tr><td><img src="images/logo_gallica.png" style="width:64px;" /></td><td>Page scans from <a href="http://gallica.bnf.fr/">Gallica</a></td></tr>
 		
 		<tr><td><img src="images/documentcloud.png" style="width:64px;" /></td><td>Document viewer from DocumentCloud</td></tr>
 		

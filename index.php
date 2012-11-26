@@ -453,7 +453,7 @@ function display_record($id)
 			var windowHeight =$(window).height() - 40;
 		
 			/* Viewer */
-			<VIEWER>
+			<DOCVIEWER>
 
 			// http://stackoverflow.com/questions/6762564/setting-div-width-according-to-the-screen-size-of-user
 			$(window).resize(function() { 

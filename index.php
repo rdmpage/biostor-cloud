@@ -93,27 +93,24 @@ function default_display()
        </div> -->
        
         <div class="span4">
-          <div style="text-align:center"><a href="biostor/111313"><img src="images/119204721358747857.png" style="height:128px;padding:37px;"/></a></div>
+          <div style="text-align:center"><a href="id/biostor/111313"><img src="images/119204721358747857.png" style="height:128px;padding:37px;"/></a></div>
           <p>On a new species of Pericrocotus from Sumbawa</p>
        </div>
-       
-       
-       
-       
+              
          <div class="span4">
-          <div style="text-align:center"><a href="biostor/59435"><img src="images/119204721357928704.png" style="height:128px;padding:37px;"/></a></div>
+          <div style="text-align:center"><a href="id/biostor/59435"><img src="images/119204721357928704.png" style="height:128px;padding:37px;"/></a></div>
           <p>Culex aegypti Linnaeus, 1762 (Insecta, Diptera): proposed validation and interpretation under the plenary powers of the species so named. Z.N. (S.) 1216</p>
        </div>
        
        <!--
        <div class="span4">
-          <div style="text-align:center"><a href="biostor/100935"><img src="images/119204721357814657.png" style="height:128px;padding:37px;"/></a></div>
+          <div style="text-align:center"><a href="id/biostor/100935"><img src="images/119204721357814657.png" style="height:128px;padding:37px;"/></a></div>
           <p>Revision of the genus Islamia Radoman, 1973 (Gastropoda, Caenogastropoda, Hydrobiidae), on the Iberian Peninsula and description of two new genera and three new species</p>
        </div>
  		-->
  		
        <div class="span4">
-          <div style="text-align:center"><a href="biostor/114"><img src="images/119204721358393734.png" style="height:128px;padding:37px;"/></a></div>
+          <div style="text-align:center"><a href="id/biostor/114"><img src="images/119204721358393734.png" style="height:128px;padding:37px;"/></a></div>
           <p>A new species of small Barbus (Pisces, Cyprinidae) from Tanzania, east Africa</p>
        </div>
  
@@ -257,8 +254,6 @@ function display_record($id)
 	else
 	{
 		// grab JSON from CouchDB
-		
-		//$couch_id = 'biostor/' . $id;
 		$couch_id = $id;
 		
 		$resp = $couch->send("GET", "/" . $config['couchdb_options']['database'] . "/" . urlencode($couch_id));
@@ -409,12 +404,8 @@ function display_record($id)
 					<div class="span4" id="metadata" style="padding-right:40px;height:400px;overflow:auto;">
 						<h4><TITLE></h4>
 						
-						
 						<ul class="unstyled">
-						
-						<li><a href="http://<BIOSTOR>" target="_new"><i class="icon-external-link"></i><BIOSTOR></a></li>
-						<li><a href="http://<BHL>" target="_new"><i class="icon-external-link"></i><BHL></a></li>
-<!--						<li><a href="http://<DOI>" target="_new"><i class="icon-external-link"></i><DOI></a></li> -->
+						<IDENTIFIER>
 						</ul>
 						
 						<COINS>
@@ -462,14 +453,8 @@ function display_record($id)
 			var windowHeight =$(window).height() - 40;
 		
 			/* Viewer */
-			var docUrl = 'http://biostor.org/dv/<ID>.json';
-			DV.load(docUrl, {
-				container: '#doc',
-				width:700,
-				height:windowHeight,
-				sidebar: false
-			});
-						
+			<VIEWER>
+
 			// http://stackoverflow.com/questions/6762564/setting-div-width-according-to-the-screen-size-of-user
 			$(window).resize(function() { 
 				var windowHeight =$(window).height() - 40;				
@@ -508,26 +493,96 @@ EOT;
 
 	
 	$template = str_replace('<BASE>', $config['web_server'] . $config['web_root'], $template);
-	$template = str_replace('<ID>', $id, $template);
+
+	$viewer = '';
+	
+	$identifiers = reference_identifiers($reference);
+	
+	// BioStor?
+	if ($viewer == '')
+	{
+		if (isset($identifiers['biostor']))
+		{
+			$viewer = "var docUrl = 'http://biostor.org/dv/" . $identifiers['biostor'] . ".json';
+				DV.load(docUrl, {
+					container: '#doc',
+					width:700,
+					height:windowHeight,
+					sidebar: false
+				});";
+		}
+	}
+	
+	// PDF?
+	if ($viewer == '')
+	{
+		// Do we have a PDF file?
+		if (isset($reference->file))
+		{
+			// If we have a PDF sha1 and a thumbnail then this is a cached, viewable PDF
+			if (isset($reference->file->sha1) && isset($reference->thumbnail))
+			{
+				$viewer = "var docUrl = 'http://bionames.org/archive/documentcloud/" . $reference->file->sha1 . ".json';
+					DV.load(docUrl, {
+						container: '#doc',
+						width:700,
+						height:windowHeight,
+						sidebar: false
+					});";
+			}
+		}
+	}
+	
+	// Gallica
+	if ($viewer == '')
+	{
+		if (isset($identifiers['ark']))
+		{
+			if (preg_match('/(?<namespace>\d+)\/(?<id>.*)\/f(?<page>\d+)$/', $identifiers['ark'], $m))
+			{
+				$namespace 	= $m['namespace'];
+				$arkid 		= $m['id'];
+				$start_page = $m['page'];
+
+				$viewer = "var docUrl = 'http://bionames.org/gallica/documentcloud/" . $arkid . "f" . $start_page . ".json';
+					DV.load(docUrl, {
+						container: '#doc',
+						width:700,
+						height:windowHeight,
+						sidebar: false
+					});";
+			}
+		}
+	}
+	
+	
+	$template = str_replace('<DOCVIEWER>', $viewer, $template);
+
+
 	$template = str_replace('<BIBDATA>', $bibdata_json, $template);
 	$template = str_replace('<TITLE>', $reference->title, $template);
 	$template = str_replace('<COINS>', reference_to_coins($reference), $template);
 	
-	foreach ($reference->identifier as $identifier)
+	foreach ($identifiers as $k => $v)
 	{
-		switch ($identifier->type)
+		switch ($k)
 		{
 			case 'biostor':
-				$template = str_replace('<BIOSTOR>', 'biostor.org/reference/' . $identifier->id, $template);
+				$html .= '<li><a href="http://biostor.org/reference/' . $v . '" target="_new"><i class="icon-external-link"></i>biostor.org/reference/' . $v . '</a></li>';
 				break;
 
 			case 'bhl':
-				$template = str_replace('<BHL>', 'biodiversitylibrary.org/page/' . $identifier->id, $template);
+				$html .= '<li><a href="http://biodiversitylibrary.org/page/' . $v . '" target="_new"><i class="icon-external-link"></i>biodiversitylibrary.org/page/' . $v . '</a></li>';
+				break;
+
+			case 'doi':
+				$html .= '<li><a href="http://dx.doi.org/' . $v . '" target="_new"><i class="icon-external-link"></i>dx.doi.org/' . $v . '</a></li>';
 				break;
 				
 			default:
 				break;
 		}
+		$template = str_replace('<IDENTIFIER>', $html, $template);
 	}
 	
 

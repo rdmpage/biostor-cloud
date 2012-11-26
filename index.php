@@ -210,7 +210,8 @@ function display_page($page)
       <h1>About this site</h1>
       
       <table>
-      	<tr><td><img src="images/cloudant.png" style="width:64px;" /></td><td>Data hosting and full-text search by Cloudant</td></tr>
+      	<tr><td><img src="images/cloudant.png" style="width:64px;" /></td><td>Data hosting and full-text search by <a href="http://cloudant.com">Cloudant</a>.</td></tr>
+      	<tr><td><img src="images/pagodabox.png" style="width:64px;" /></td><td>Hosted by <a href="http://pagodabox.com/">Pagoda Box</a>.</td></tr>
       	<tr><td><img src="images/biostor-shadow.png" style="width:64px;" /></td><td>Article metadata from BioStor</td></tr>
 		<tr><td><img src="images/BHL_Small_Logo.jpg" style="width:64px;" /></td><td>Page scans from BHL</td></tr>
 		<tr><td><img src="images/documentcloud.png" style="width:64px;" /></td><td>Document viewer from DocumentCloud</td></tr>
@@ -563,9 +564,9 @@ EOT;
 	$template = str_replace('<TITLE>', $reference->title, $template);
 	$template = str_replace('<COINS>', reference_to_coins($reference), $template);
 	
+	$html = '';
 	foreach ($identifiers as $k => $v)
 	{
-		$html = '';
 		switch ($k)
 		{
 			case 'ark':
@@ -589,10 +590,9 @@ EOT;
 				
 			default:
 				break;
-		}
-		$template = str_replace('<IDENTIFIER>', $html, $template);
+		}		
 	}
-	
+	$template = str_replace('<IDENTIFIER>', $html, $template);	
 
     echo $template;
 

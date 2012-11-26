@@ -568,13 +568,20 @@ EOT;
 		$html = '';
 		switch ($k)
 		{
-			case 'biostor':
-				$html .= '<li><a href="http://biostor.org/reference/' . $v . '" target="_new"><i class="icon-external-link"></i>biostor.org/reference/' . $v . '</a></li>';
+			case 'ark':
+				if (preg_match('/^12148/', $v))
+				{
+					$html .= '<li><a href="http://gallica.bnf.fr/ark:/' . $v . '" target="_new"><i class="icon-external-link"></i>ark:/' . $v . '</a></li>';
+				}
 				break;
-
+		
 			case 'bhl':
 				$html .= '<li><a href="http://biodiversitylibrary.org/page/' . $v . '" target="_new"><i class="icon-external-link"></i>biodiversitylibrary.org/page/' . $v . '</a></li>';
 				break;
+				
+			case 'biostor':
+				$html .= '<li><a href="http://biostor.org/reference/' . $v . '" target="_new"><i class="icon-external-link"></i>biostor.org/reference/' . $v . '</a></li>';
+				break;				
 
 			case 'doi':
 				$html .= '<li><a href="http://dx.doi.org/' . $v . '" target="_new"><i class="icon-external-link"></i>dx.doi.org/' . $v . '</a></li>';

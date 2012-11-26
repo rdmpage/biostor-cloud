@@ -1,0 +1,195 @@
+<html>
+	<head>
+	
+			<!-- Le styles -->
+			<link href="assets/css/bootstrap.css" rel="stylesheet">
+			<link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+			
+			<link href='font-awesome.css' media='screen' rel='stylesheet' type='text/css' />			
+		
+			<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+			<!--[if lt IE 9]>
+			  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+			<![endif]-->            
+	
+		<script>
+			function openurl(co, id)
+			{
+				//alert(encodeURIComponent(co, id));
+				$.getJSON("openurl.php?" + co + "&callback=?",
+					function(data){
+						if (data.results.length > 0)
+						{
+							//alert(data.results[0].id);
+							var html = '';
+							
+							if (data.results.length == 1)
+							{
+								html += '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">×</button>';
+								html += '<h4>Found</h4>';
+							}
+							else
+							{
+								html += '<div class="alert"><button type="button" class="close" data-dismiss="alert">×</button>';
+								html += '<h4>Possible matches</h4>';							
+							}
+							
+							
+							html += '<p/>';
+							html += '<table>';
+							
+							for (var i in data.results)
+							{							
+								html += '<tr>';
+								html += '<td width="100">' + '<img style="box-shadow:2px 2px 2px #ccc;width:64px;" src="' + data.results[i].reference.thumbnail + '"/>' + '</td>';
+								html += '<td>' + '<b>' + data.results[i].reference.title + '</b>' + '<br/>';
+								
+								html += '<a class="btn btn-primary" href="id/' + data.results[i].reference._id + '">View</a>';
+								
+								html += '</td>';
+								html += '</tr>';
+							}
+							html += '</table>';
+							
+							html += '</div>';
+							
+							$('#' + id).html(html);
+						}
+						else
+						{
+							var html = '<div class="alert alert-error"><button type="button" class="close" data-dismiss="alert">×</button><h4>Not found</h4>';
+							html += '</div>';
+							
+							$('#' + id).html(html);
+						
+						}
+					}
+				);
+			}
+		
+		</script>
+	
+	</head>
+
+<body>
+<div style="margin-top:0px;" class="container-fluid">
+<div class="container">
+<h1>OpenURL linking demo</h1>
+ <ol>
+      <li>
+        <a name="B1"></a>Clark, E (1936) <b> The freshwater and land crayfishes of Australia.</b> Memoirs of the Natural Museum of Victoria 10:5-58<br>
+        <button class="btn btn-info" onclick="openurl('ctx_ver=Z39.88-2004&amp;rft_val_fmt=info:ofi/fmt:kev:mtx:journal&amp;rfe_id=info:doi/10.3897/zookeys.85.1237&amp;rft.aulast=Clark&amp;rft.aufirst=E&amp;rft.au=E+Clark&amp;rft.atitle=+The+freshwater+and+land+crayfishes+of+Australia.&amp;rft.jtitle=Memoirs+of+the+Natural+Museum+of+Victoria&amp;rft.volume=10&amp;rft.spage=5&amp;rft.epage=58&amp;rft.date=1936','B1')">Find</button>
+        <div id="B1"></div>
+        <br>
+      </li>
+      <li>
+        <a name="B2"></a>Clark, E (1941) <b> Revision of the genus Euastacus (Crayfishes, Family Parastacidae), with notes on the distribution of certain species.</b> Memoirs of the Natural Museum of Victoria 12:7-30<br>
+        <button class="btn btn-info" onclick="openurl('ctx_ver=Z39.88-2004&amp;rft_val_fmt=info:ofi/fmt:kev:mtx:journal&amp;rfe_id=info:doi/10.3897/zookeys.85.1237&amp;rft.aulast=Clark&amp;rft.aufirst=E&amp;rft.au=E+Clark&amp;rft.atitle=+Revision+of+the+genus+Euastacus+(Crayfishes,+Family+Parastacidae),+with+notes+on+the+distribution+of+certain+species.&amp;rft.jtitle=Memoirs+of+the+Natural+Museum+of+Victoria&amp;rft.volume=12&amp;rft.spage=7&amp;rft.epage=30&amp;rft.date=1941','B2')">Find</button>
+        <div id="B2"></div>
+        <br>
+      </li>
+      <li>
+        <a name="B3"></a>Coughran, J (2002) <b> A new species of the freshwater crayfish genus Euastacus (Decapoda: Parastacidae) from northeastern New South Wales, Australia.</b> Records of the Australian Museum 54:25-30<br>
+        <button class="btn btn-info" onclick="openurl('ctx_ver=Z39.88-2004&amp;rft_val_fmt=info:ofi/fmt:kev:mtx:journal&amp;rfe_id=info:doi/10.3897/zookeys.85.1237&amp;rft.aulast=Coughran&amp;rft.aufirst=J&amp;rft.au=J+Coughran&amp;rft.atitle=+A+new+species+of+the+freshwater+crayfish+genus+Euastacus+(Decapoda:+Parastacidae)+from+northeastern+New+South+Wales,+Australia.&amp;rft.jtitle=Records+of+the+Australian+Museum&amp;rft.volume=54&amp;rft.spage=25&amp;rft.epage=30&amp;rft.date=2002','B3')">Find</button>
+        <div id="B3"></div>
+        <br>
+      </li>
+      <li>
+        <a name="B4"></a>Coughran, J (2005) <b> New crayfishes (Decapoda: Parastacidae: Euastacus) from northeastern New South Wales, Australia.</b> Records of the Australian Museum 57:361-374<br>
+        <button class="btn btn-info" onclick="openurl('ctx_ver=Z39.88-2004&amp;rft_val_fmt=info:ofi/fmt:kev:mtx:journal&amp;rfe_id=info:doi/10.3897/zookeys.85.1237&amp;rft.aulast=Coughran&amp;rft.aufirst=J&amp;rft.au=J+Coughran&amp;rft.atitle=+New+crayfishes+(Decapoda:+Parastacidae:+Euastacus)+from+northeastern+New+South+Wales,+Australia.&amp;rft.jtitle=Records+of+the+Australian+Museum&amp;rft.volume=57&amp;rft.spage=361&amp;rft.epage=374&amp;rft.date=2005','B4')">Find</button>
+        <div id="B4"></div>
+        <br>
+      </li>
+      <li>
+        <a name="B5"></a>Coughran, J, Furse, JM (2010) <b>Report prepared for the global species conservation assessment of crayfishes for the IUCN Red List of Threatened Species.</b> The Environmental Futures Centre, Griffith School of Environment, Griffith University, Gold Coast Campus Queensland</li>
+      <li>
+        <a name="B6"></a>Coughran, J, Leckie, S (2007) <b> Euastacus pilosus sp. n., a new crayfish from the highland forests of northern New South Wales, Australia.</b> Fishes of Sahul 21:309-316<br>
+        <button class="btn btn-info" onclick="openurl('ctx_ver=Z39.88-2004&amp;rft_val_fmt=info:ofi/fmt:kev:mtx:journal&amp;rfe_id=info:doi/10.3897/zookeys.85.1237&amp;rft.aulast=Coughran&amp;rft.aufirst=J&amp;rft.au=J+Coughran&amp;rft.au=S+Leckie&amp;rft.atitle=+Euastacus+pilosus+sp.+n.,+a+new+crayfish+from+the+highland+forests+of+northern+New+South+Wales,+Australia.&amp;rft.jtitle=Fishes+of+Sahul&amp;rft.volume=21&amp;rft.spage=309&amp;rft.epage=316&amp;rft.date=2007','B6')">Find</button>
+        <div id="B6"></div>
+        <br>
+      </li>
+      <li>
+        <a name="B7"></a>Furse, JM, Coughran, J New Frontiers in Crustacean Biology, Crustaceana Monographs 15</li>
+      <li>
+        <a name="B8"></a>Furse, JM, Coughran, J New Frontiers in Crustacean Biology, Crustaceana Monographs 15</li>
+      <li>
+        <a name="B9"></a>Furse, JM, Coughran, J New Frontiers in Crustacean Biology, Crustaceana Monographs 15</li>
+      <li>
+        <a name="B10"></a>International Union for Conservation of Nature (IUCN),  (2010)  IUCN Red List of Threatened Species. Version 2010.4.http://www.iucnredlist.org</li>
+      <li>
+        <a name="B11"></a>McCormack, RB, Coughran, J (2008) <b> Euastacus maccai, a new freshwater crayfish from New South Wales.</b> Fishes of Sahu l22:471-476<br>
+        <button class="btn btn-info" onclick="openurl('ctx_ver=Z39.88-2004&amp;rft_val_fmt=info:ofi/fmt:kev:mtx:journal&amp;rfe_id=info:doi/10.3897/zookeys.85.1237&amp;rft.aulast=McCormack&amp;rft.aufirst=RB&amp;rft.au=RB+McCormack&amp;rft.au=J+Coughran&amp;rft.atitle=+Euastacus+maccai,+a+new+freshwater+crayfish+from+New+South+Wales.&amp;rft.jtitle=Fishes+of+Sahu&amp;rft.volume=l22&amp;rft.spage=471&amp;rft.epage=476&amp;rft.date=2008','B11')">Find</button>
+        <div id="B11"></div>
+        <br>
+      </li>
+      <li>
+        <a name="B12"></a>Monroe, R (1977) <b> A new species of Euastacus (Decapoda: Parastacidae) from north Queensland.</b> Memoirs of the Queensland Museum 18:65-67<br>
+        <button class="btn btn-info" onclick="openurl('ctx_ver=Z39.88-2004&amp;rft_val_fmt=info:ofi/fmt:kev:mtx:journal&amp;rfe_id=info:doi/10.3897/zookeys.85.1237&amp;rft.aulast=Monroe&amp;rft.aufirst=R&amp;rft.au=R+Monroe&amp;rft.atitle=+A+new+species+of+Euastacus+(Decapoda:+Parastacidae)+from+north+Queensland.&amp;rft.jtitle=Memoirs+of+the+Queensland+Museum&amp;rft.volume=18&amp;rft.spage=65&amp;rft.epage=67&amp;rft.date=1977','B12')">Find</button>
+        <div id="B12"></div>
+        <br>
+      </li>
+      <li>
+        <a name="B13"></a>Morgan, GJ (1983) <b> A taxonomic revision of the freshwater crayfish genus Euastacus (Decapoda: Parastacidae).</b> PhD Thesis, Melbourne, Australia: Monash University </li>
+      <li>
+        <a name="B14"></a>Morgan, GJ (1986) <b> Freshwater Crayfish of the Genus Euastacus Clark (Decapoda: Parastacidae) from Victoria.</b> Memoirs of the Museum of Victoria 47:1-57<br>
+        <button class="btn btn-info" onclick="openurl('ctx_ver=Z39.88-2004&amp;rft_val_fmt=info:ofi/fmt:kev:mtx:journal&amp;rfe_id=info:doi/10.3897/zookeys.85.1237&amp;rft.aulast=Morgan&amp;rft.aufirst=GJ&amp;rft.au=GJ+Morgan&amp;rft.atitle=+Freshwater+Crayfish+of+the+Genus+Euastacus+Clark+(Decapoda:+Parastacidae)+from+Victoria.&amp;rft.jtitle=Memoirs+of+the+Museum+of+Victoria&amp;rft.volume=47&amp;rft.spage=1&amp;rft.epage=57&amp;rft.date=1986','B14')">Find</button>
+        <div id="B14"></div>
+        <br>
+      </li>
+      <li>
+        <a name="B15"></a>Morgan, GJ (1988) <b> Freshwater Crayfish of the Genus Euastacus Clark (Decapoda: Parastacidae) From Queensland.</b> Memoirs of the Museum of Victoria 49:1-49<br>
+        <button class="btn btn-info" onclick="openurl('ctx_ver=Z39.88-2004&amp;rft_val_fmt=info:ofi/fmt:kev:mtx:journal&amp;rfe_id=info:doi/10.3897/zookeys.85.1237&amp;rft.aulast=Morgan&amp;rft.aufirst=GJ&amp;rft.au=GJ+Morgan&amp;rft.atitle=+Freshwater+Crayfish+of+the+Genus+Euastacus+Clark+(Decapoda:+Parastacidae)+From+Queensland.&amp;rft.jtitle=Memoirs+of+the+Museum+of+Victoria&amp;rft.volume=49&amp;rft.spage=1&amp;rft.epage=49&amp;rft.date=1988','B15')">Find</button>
+        <div id="B15"></div>
+        <br>
+      </li>
+      <li>
+        <a name="B16"></a>Morgan, GJ (1989) <b> Two new species of the freshwater crayfish Euastacus Clark (Decapoda: Parastacidae) from isolated high country of Queensland.</b> Memoirs of the Queensland Museum 27:368-388<br>
+        <button class="btn btn-info" onclick="openurl('ctx_ver=Z39.88-2004&amp;rft_val_fmt=info:ofi/fmt:kev:mtx:journal&amp;rfe_id=info:doi/10.3897/zookeys.85.1237&amp;rft.aulast=Morgan&amp;rft.aufirst=GJ&amp;rft.au=GJ+Morgan&amp;rft.atitle=+Two+new+species+of+the+freshwater+crayfish+Euastacus+Clark+(Decapoda:+Parastacidae)+from+isolated+high+country+of+Queensland.&amp;rft.jtitle=Memoirs+of+the+Queensland+Museum&amp;rft.volume=27&amp;rft.spage=368&amp;rft.epage=388&amp;rft.date=1989','B16')">Find</button>
+        <div id="B16"></div>
+        <br>
+      </li>
+      <li>
+        <a name="B17"></a>Morgan, GJ (1991) <b> The spiny freshwater crayfish of Queensland.</b> Queensland Naturalist 31:29-36<br>
+        <button class="btn btn-info" onclick="openurl('ctx_ver=Z39.88-2004&amp;rft_val_fmt=info:ofi/fmt:kev:mtx:journal&amp;rfe_id=info:doi/10.3897/zookeys.85.1237&amp;rft.aulast=Morgan&amp;rft.aufirst=GJ&amp;rft.au=GJ+Morgan&amp;rft.atitle=+The+spiny+freshwater+crayfish+of+Queensland.&amp;rft.jtitle=Queensland+Naturalist&amp;rft.volume=31&amp;rft.spage=29&amp;rft.epage=36&amp;rft.date=1991','B17')">Find</button>
+        <div id="B17"></div>
+        <br>
+      </li>
+      <li>
+        <a name="B18"></a>Morgan, GJ (1997) Records of the Australian Museum (1997) Supplement 23</li>
+      <li>
+        <a name="B19"></a>Riek, EF (1951) <b> The freshwater crayfish (Family Parastacidae) of Queensland, with an appendix describing other Australian species.</b> Records of the Australian Museum 22:368-388<br>
+        <button class="btn btn-info" onclick="openurl('ctx_ver=Z39.88-2004&amp;rft_val_fmt=info:ofi/fmt:kev:mtx:journal&amp;rfe_id=info:doi/10.3897/zookeys.85.1237&amp;rft.aulast=Riek&amp;rft.aufirst=EF&amp;rft.au=EF+Riek&amp;rft.atitle=+The+freshwater+crayfish+(Family+Parastacidae)+of+Queensland,+with+an+appendix+describing+other+Australian+species.&amp;rft.jtitle=Records+of+the+Australian+Museum&amp;rft.volume=22&amp;rft.spage=368&amp;rft.epage=388&amp;rft.date=1951','B19')">Find</button>
+        <div id="B19"></div>
+        <br>
+      </li>
+      <li>
+        <a name="B20"></a>Riek, EF (1956) <b> Additions to the Australian freshwater crayfish.</b> Records of the Australian Museum 24:1-6<br>
+        <button class="btn btn-info" onclick="openurl('ctx_ver=Z39.88-2004&amp;rft_val_fmt=info:ofi/fmt:kev:mtx:journal&amp;rfe_id=info:doi/10.3897/zookeys.85.1237&amp;rft.aulast=Riek&amp;rft.aufirst=EF&amp;rft.au=EF+Riek&amp;rft.atitle=+Additions+to+the+Australian+freshwater+crayfish.&amp;rft.jtitle=Records+of+the+Australian+Museum&amp;rft.volume=24&amp;rft.spage=1&amp;rft.epage=6&amp;rft.date=1956','B20')">Find</button>
+        <div id="B20"></div>
+        <br>
+      </li>
+      <li>
+        <a name="B21"></a>Riek, EF (1969) <b> The Australian freshwater crayfish (Crustacea: Decapoda: Parastacidae) with descriptions of new species.</b> Australian Journal of Zoology 17:855-918<br>
+        <button class="btn btn-info" onclick="openurl('ctx_ver=Z39.88-2004&amp;rft_val_fmt=info:ofi/fmt:kev:mtx:journal&amp;rfe_id=info:doi/10.3897/zookeys.85.1237&amp;rft.aulast=Riek&amp;rft.aufirst=EF&amp;rft.au=EF+Riek&amp;rft.atitle=+The+Australian+freshwater+crayfish+(Crustacea:+Decapoda:+Parastacidae)+with+descriptions+of+new+species.&amp;rft.jtitle=Australian+Journal+of+Zoology&amp;rft.volume=17&amp;rft.spage=855&amp;rft.epage=918&amp;rft.date=1969','B21')">Find</button>
+        <div id="B21"></div>
+        <br>
+      </li>
+      <li>
+        <a name="B22"></a>Short, JW, Davie, PJF (1993) <b> Two new species of freshwater crayfish (Crustacea: Decapoda: Parastacidae) from northeastern Queensland rainforest.</b> Memoirs of the Queensland Museum 34:69-80<br>
+        <button class="btn btn-info" onclick="openurl('ctx_ver=Z39.88-2004&amp;rft_val_fmt=info:ofi/fmt:kev:mtx:journal&amp;rfe_id=info:doi/10.3897/zookeys.85.1237&amp;rft.aulast=Short&amp;rft.aufirst=JW&amp;rft.au=JW+Short&amp;rft.au=PJF+Davie&amp;rft.atitle=+Two+new+species+of+freshwater+crayfish+(Crustacea:+Decapoda:+Parastacidae)+from+northeastern+Queensland+rainforest.&amp;rft.jtitle=Memoirs+of+the+Queensland+Museum&amp;rft.volume=34&amp;rft.spage=69&amp;rft.epage=80&amp;rft.date=1993','B22')">Find</button>
+        <div id="B22"></div>
+        <br>
+      </li>
+    </ol>
+
+</div>
+</div>
+	   <!-- Le javascript
+		================================================== -->
+		<!-- Placed at the end of the document so the pages load faster -->
+		<script src="assets/js/jquery.js"></script>
+		<script src="assets/js/bootstrap.js"></script>
+
+
+</body>
+</html>

@@ -211,12 +211,21 @@ function display_page($page)
       
       <table>
       	<tr><td><img src="images/cloudant.png" style="width:64px;" /></td><td>Data hosting and full-text search by <a href="http://cloudant.com">Cloudant</a>.</td></tr>
+      	
       	<tr><td><img src="images/pagodabox.png" style="width:64px;" /></td><td>Hosted by <a href="http://pagodabox.com/">Pagoda Box</a>.</td></tr>
+      	
       	<tr><td><img src="images/biostor-shadow.png" style="width:64px;" /></td><td>Article metadata from BioStor</td></tr>
+      	
 		<tr><td><img src="images/BHL_Small_Logo.jpg" style="width:64px;" /></td><td>Page scans from BHL</td></tr>
+
+		<tr><td><img src="images/logo_gallica.jpg" style="width:64px;" /></td><td>Page scans from <a href="http://gallica.bnf.fr/">Gallica</a></td></tr>
+		
 		<tr><td><img src="images/documentcloud.png" style="width:64px;" /></td><td>Document viewer from DocumentCloud</td></tr>
+		
 		<tr><td><img src="images/citeproc-js-logo_avatar.png" style="width:64px;" /></td><td>Citation formatting using citeproc-js</td></tr>
+		
 		<tr><td><img src="images/crossrefsquare.gif" style="width:64px;" /></td><td>Metadata and inspiration</td></tr>
+		
 		<tr><td><img src="images/Mairi_drawing256x256.png" style="width:64px;" /></td><td>Blood, sweat, and tears</td></tr>
       </table>
 

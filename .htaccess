@@ -9,8 +9,8 @@ RewriteBase /
 # Object
 RewriteRule ^id/(.*)   index.php?id=$1 [NC,L]
 
-# BioStor
-RewriteRule ^biostor/(.*)   index.php?biostor=$1 [NC,L]
+# Document
+RewriteRule ^id/(.*)   index.php?id=$1 [NC,L]
 
 # DOI
 RewriteRule ^doi/(.*)   index.php?doi=$1 [NC,L]

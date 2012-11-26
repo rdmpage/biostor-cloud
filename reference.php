@@ -4,11 +4,37 @@
 
 //--------------------------------------------------------------------------------------------------
 /**
- * @brief Create a citation string for indexing
+ * @brief Get identifiers for a reference
+ * *
+ * @param reference Reference object
+ *
+ * @return Array of key-value pairs where the key is the identifier type 
+ * and the value is the identifier
+ */
+function reference_identifiers($reference)
+{
+	$identifiers = array();
+	
+	//print_r($reference->identifier);
+	
+	if (isset($reference->identifier))
+	{
+		foreach ($reference->identifier as $identifier)
+		{
+			$identifiers[$identifier->type] = $identifier->id;
+		}
+	}
+	
+	return $identifiers;
+}
+
+//--------------------------------------------------------------------------------------------------
+/**
+ * @brief Create a citation string for indexing (e.g., by CouchDB)
  * *
  * @param reference Reference object to be encoded
  *
- * @return OpenURL
+ * @return Citation string
  */
 function reference_to_citation_string($reference)
 {
@@ -67,13 +93,12 @@ function reference_to_citation_string($reference)
 	return $citation;
 }
 
-
 //--------------------------------------------------------------------------------------------------
 /**
  * @brief Convert BibJSON object to citeproc-js object
  *
  * @param reference Reference object to be converted
- * @param id Local id for citeproc-js object 
+ * @param id Local id for citeproc-js object (by default 'ITEM-1')
  *
  * @return citeproc-js object
  */

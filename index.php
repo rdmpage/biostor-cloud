@@ -258,7 +258,8 @@ function display_record($id)
 	{
 		// grab JSON from CouchDB
 		
-		$couch_id = 'biostor/' . $id;
+		//$couch_id = 'biostor/' . $id;
+		$couch_id = $id;
 		
 		$resp = $couch->send("GET", "/" . $config['couchdb_options']['database'] . "/" . urlencode($couch_id));
 		
@@ -671,7 +672,7 @@ echo '<!DOCTYPE html>
 		
 		
 		echo '<p class="lead">';
-		echo '<a href="' . $reference->id . '">' . $reference->title . '</a>';
+		echo '<a href="id/' . $reference->id . '">' . $reference->title . '</a>';
 		echo '</p>';
 		
 		echo '<p>';
@@ -791,9 +792,9 @@ function main()
 	}
 	
 	// If show a single record
-	if (isset($_GET['biostor']))
+	if (isset($_GET['id']))
 	{	
-		$id = $_GET['biostor'];
+		$id = $_GET['id'];
 		display_record($id);
 	}
 

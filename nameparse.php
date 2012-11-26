@@ -54,7 +54,7 @@ function	parse_name($fullname) {
 					continue;
 					}
 
-				if(!$out['first']) {
+				if(!isset($out['first'])) {
 					$out['first']	=	$curr;
 					continue;
 					}
@@ -71,7 +71,7 @@ function	parse_name($fullname) {
 					}
 
 				if($i == $n_subp-1) {
-					if($out['last']) {
+					if(isset($out['last'])) {
 						$out['last']	.=	" $curr";
 						}
 					else {

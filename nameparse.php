@@ -45,9 +45,17 @@ function	parse_name($fullname) {
 		case	1:	// array(title first middles last suffix)
 			$subp	=	explode(' ',trim($pieces[0]));
 			$n_subp	=	count($subp);
-			for($i = 0; $i < $n_subp-1; $i++) {
+			for($i = 0; $i < $n_subp; $i++) {
 				$curr				=	trim($subp[$i]);
-				$next				=	trim($subp[$i+1]);
+				//$next				=	trim($subp[$i+1]);
+				if ($i < $n_subp - 1)
+				{
+					$next				=	trim($subp[$i+1]);
+				}
+				else
+				{
+					$next = '';
+				}
 
 				if($i == 0 && in_array_norm($curr,$titles)) {
 					$out['title']	=	$curr;

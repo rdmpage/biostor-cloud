@@ -13,3 +13,22 @@ Project makes use of [Twitter Bootstrap](http://twitter.github.com/bootstrap/) a
 
 Documents are displayed using the [documentcloud / document-viewer](https://github.com/documentcloud/document-viewer).
 
+Hosting using Pagodabox
+-----------------------
+
+This project is hosted by [Pagoda Box](https://pagodabox.com/). To deploy to Pagoda Box we use git. For example, having modified a file such as index.php we do this:
+
+    git add index.php
+    git commit -m "Some informative message"
+    git push pagoda --all
+    
+This requires that we follow the instructions for [setting up git and SSH keys](http://help.pagodabox.com/customer/portal/articles/200927).
+
+Because Pagoda Box runs a minimal PHP by default, we need to create a Boxfile to specify any extra things we need. For example, if we need curl then the Boxfile looks like this:
+
+    web1:
+        php_extensions:
+            - curl
+
+
+

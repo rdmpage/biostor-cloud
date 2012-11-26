@@ -38,6 +38,8 @@ function	parse_name($fullname) {
 
 	$pieces			=	explode(',',preg_replace('/\s+/',' ',trim($fullname)));
 	$n_pieces		=	count($pieces);
+	
+	$out = array();
 
 	switch($n_pieces) {
 		case	1:	// array(title first middles last suffix)

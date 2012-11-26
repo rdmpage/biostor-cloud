@@ -322,17 +322,17 @@ function parse_openurl($params, &$context_object)
 	}
 	
 	// Journal titles with series numbers are split into title,series fields
-	if (preg_match('/(?<title>.*),?\s+series\s+(?<series>[0-9]+)$/i', $context_object->referent->publication_outlet, $match))
+	if (preg_match('/(?<title>.*),?\s+series\s+(?<series>[0-9]+)$/i', $context_object->referent->journal->name, $match))
 	{
-		$context_object->referent->publication_outlet= $match['title'];
-		$context_object->referent->series= $match['series'];
+		$context_object->referent->journal->name= $match['title'];
+		$context_object->referent->journal->series= $match['series'];
 	}		
 
 	// Volume might have series information
-	if (preg_match('/^series\s+(?<series>[0-9]+),\s*(?<volume>[0-9]+)$/i', $context_object->referent->volume, $match))
+	if (preg_match('/^series\s+(?<series>[0-9]+),\s*(?<volume>[0-9]+)$/i', $context_object->referent->journal->volume, $match))
 	{
-		$context_object->referent->volume= $match['volume'];
-		$context_object->referent->series= $match['series'];
+		$context_object->referent->journal->volume= $match['volume'];
+		$context_object->referent->journal->series= $match['series'];
 	}		
 	
 	// Author array might not be populated, in which case add author from aulast and aufirst fields

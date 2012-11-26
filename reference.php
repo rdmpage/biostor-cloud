@@ -51,7 +51,10 @@ function reference_to_citation_string($reference)
 			}
 			else
 			{
-				$authors[] = $author->name;
+				if (isset($author->name))
+				{
+					$authors[] = $author->name;
+				}
 			}
 		
 		}

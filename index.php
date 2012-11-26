@@ -565,6 +565,7 @@ EOT;
 	
 	foreach ($identifiers as $k => $v)
 	{
+		$html = '';
 		switch ($k)
 		{
 			case 'biostor':

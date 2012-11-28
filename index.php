@@ -787,16 +787,16 @@ echo '<!DOCTYPE html>
 		
 		echo '</p>';
 		
-		echo '<p>';
+		echo '<div>';
 		
 		if (isset($reference->author))
 		{
 			$authors = array();
 			foreach ($reference->author as $author)
 			{
-				if (isset($author->forename))
+				if (isset($author->firstname))
 				{
-					$authors[] = $author->lastname . ' ' . $author->forename;
+					$authors[] = $author->lastname . ' ' . $author->firstname;
 				}
 				else
 				{
@@ -808,7 +808,7 @@ echo '<!DOCTYPE html>
 		}
 		
 		
-		echo '</p>';
+		echo '</div>';
 		
 		// COinS
 		echo reference_to_coins($reference);

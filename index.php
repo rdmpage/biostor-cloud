@@ -751,11 +751,12 @@ echo '<!DOCTYPE html>
 		//echo $row->order[0];
 		
 		
-		echo '<p class="lead">';
+		//echo '<p class="lead">';
+		echo '<p style="font-size:21px;font-weight:200;line-height:30px;">';
 		echo '<a href="id/' . $reference->id . '">' . $reference->title . '</a>';
 		echo '</p>';
 		
-		echo '<p>';
+		echo '<div>';
 		
 		if ($reference->year)
 		{
@@ -785,7 +786,7 @@ echo '<!DOCTYPE html>
 		
 		
 		
-		echo '</p>';
+		echo '</div>';
 		
 		echo '<div>';
 		

@@ -573,6 +573,15 @@ EOT;
 			$viewer = '$("#doc").html(\'<iframe src="http://dx.doi.org/' . $identifiers['doi'] . '" width="700" height="100%" style="border: none;"></iframe>\');';
 		}
 	}
+
+	// JSTOR
+	if ($viewer == '')
+	{
+		if (isset($identifiers['jstor']))
+		{
+			$viewer = '$("#doc").html(\'<iframe src="http://www.jstor.org/stable/' . $identifiers['jstor'] . '" width="700" height="100%" style="border: none;"></iframe>\');';
+		}
+	}
 	
 	$template = str_replace('<DOCVIEWER>', $viewer, $template);
 
@@ -603,6 +612,10 @@ EOT;
 
 			case 'doi':
 				$html .= '<li><a href="http://dx.doi.org/' . $v . '" target="_new"><i class="icon-external-link"></i>dx.doi.org/' . $v . '</a></li>';
+				break;
+
+			case 'jstor':
+				$html .= '<li><a href="http://ww.jstor.org/stable/' . $v . '" target="_new"><i class="icon-external-link"></i>www.jstor.org/stable/' . $v . '</a></li>';
 				break;
 				
 			default:
@@ -831,6 +844,10 @@ echo '<!DOCTYPE html>
 	
 					case 'doi':
 						echo '<a href="http://dx.doi.org/' . $identifier->id . '" target="_new"><i class="icon-external-link"></i>doi.dx.org/' . $identifier->id . '</a></li>';
+						break;
+
+					case 'jstor':
+						echo '<a href="http://www.jstor.org/stable/' . $identifier->id . '" target="_new"><i class="icon-external-link"></i>www.jstor.org/stable/' . $identifier->id . '</a></li>';
 						break;
 						
 					default:

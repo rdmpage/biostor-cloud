@@ -570,7 +570,7 @@ EOT;
 	{
 		if (isset($identifiers['doi']))
 		{
-			$viewer = '<iframe src="http://dx.doi.org/' . $identifiers['doi'] . '" width="700" height="100%" style="border: none;"></iframe>';
+			$viewer = '$("#doc").html(\'<iframe src="http://dx.doi.org/' . $identifiers['doi'] . '" width="700" height="100%" style="border: none;"></iframe>\');';
 		}
 	}
 	

@@ -565,6 +565,14 @@ EOT;
 		}
 	}
 	
+	// DOI
+	if ($viewer == '')
+	{
+		if (isset($identifiers['doi']))
+		{
+			$viewer = '<iframe src="http://dx.doi.org/' . $identifiers['doi'] . '" width="700" height="100%" style="border: none;"></iframe>';
+		}
+	}
 	
 	$template = str_replace('<DOCVIEWER>', $viewer, $template);
 
@@ -821,7 +829,7 @@ echo '<!DOCTYPE html>
 						break;
 	
 					case 'doi':
-						echo '<a href="http://dx.doi.org/' . $identifier->id . '" target="_new"><i class="icon-external-link"></i>doi.dx.org' . $identifier->id . '</a></li>';
+						echo '<a href="http://dx.doi.org/' . $identifier->id . '" target="_new"><i class="icon-external-link"></i>doi.dx.org/' . $identifier->id . '</a></li>';
 						break;
 						
 					default:

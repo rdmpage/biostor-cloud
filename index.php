@@ -777,7 +777,25 @@ echo '<!DOCTYPE html>
 		}
 		if (isset($reference->journal))
 		{
-			echo ' in <b>' . $reference->journal->name . '</b>';
+			$issn = '';
+			if (isset($reference->journal->identifier))
+			{
+				foreach ($reference->journal->identifier as $identifier)
+				{
+					if ($identifier->type == 'issn')
+					{
+						$issn = $identifier->id;
+					}
+				}
+			}
+			if ($issn != '')
+			{
+				echo ' in <b><a href="issn/' . $issn . '">' . $reference->journal->name . '</a></b>';			
+			}
+			else
+			{
+				echo ' in <b>' . $reference->journal->name . '</b>';
+			}
 			if (isset($reference->journal->volume))
 			{
 				echo ', volume <b>' . $reference->journal->volume . '</b>';

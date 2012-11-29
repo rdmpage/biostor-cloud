@@ -15,6 +15,9 @@ RewriteRule ^id/(.*)   index.php?id=$1 [NC,L]
 # DOI
 RewriteRule ^doi/(.*)   index.php?doi=$1 [NC,L]
 
+# ISSN
+RewriteRule ^issn/(.*)   journal.php?issn=$1 [NC,L]
+
 # Author name
 RewriteRule ^author/(.*)   index.php?author=$1 [NC,L]
 

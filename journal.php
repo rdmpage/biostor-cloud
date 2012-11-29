@@ -102,7 +102,7 @@ echo '<!DOCTYPE html>
         <head>
             <meta charset="utf-8"/>
             
-            <base href="<BASE>" />
+            <base href="' . $config['web_server'] . $config['web_root'] . '" />
             
             <title>';
             

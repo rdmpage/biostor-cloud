@@ -771,7 +771,7 @@ echo '<!DOCTYPE html>
 		
 		echo '<div>';
 		
-		if ($reference->year)
+		if (isset($reference->year))
 		{
 			echo 'Published in <b>' . $reference->year . '</b>';
 		}

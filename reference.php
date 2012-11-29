@@ -288,7 +288,10 @@ function reference_to_openurl($reference)
 	}
 	
 	// date
-	$openurl .= '&amp;rft.date=' . $reference->year;
+	if (isset($reference->year))
+	{
+		$openurl .= '&amp;rft.date=' . $reference->year;
+	}
 	
 	// identifiers
 	if (isset($reference->identifier))

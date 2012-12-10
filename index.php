@@ -583,6 +583,25 @@ EOT;
 		}
 	}
 	
+	// CiNii
+	if ($viewer == '')
+	{
+		if (isset($identifiers['cinii']))
+		{
+			$viewer = '$("#doc").html(\'<iframe src="http://ci.nii.ac.jp/naid/' . $identifiers['cinii'] . '" width="700" height="100%" style="border: none;"></iframe>\');';
+		}
+	}
+
+	// Handle
+	if ($viewer == '')
+	{
+		if (isset($identifiers['handle']))
+		{
+			$viewer = '$("#doc").html(\'<iframe src="http://hdl.handle.net/' . $identifiers['handle'] . '" width="700" height="100%" style="border: none;"></iframe>\');';
+		}
+	}
+	
+	
 	$template = str_replace('<DOCVIEWER>', $viewer, $template);
 
 

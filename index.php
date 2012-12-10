@@ -869,7 +869,7 @@ echo '<!DOCTYPE html>
 						break;
 						
 					case 'cinii':
-						$html .= '<a href="http://ci.nii.ac.jp/naid/' . $identifier->id . '" target="_new"><i class="icon-external-link"></i>ci.nii.ac.jp/naid/' . $identifier->id . '</a>';
+						echo '<a href="http://ci.nii.ac.jp/naid/' . $identifier->id . '" target="_new"><i class="icon-external-link"></i>ci.nii.ac.jp/naid/' . $identifier->id . '</a>';
 						break;										
 	
 					case 'doi':
@@ -877,7 +877,7 @@ echo '<!DOCTYPE html>
 						break;
 					
 					case 'handle':
-						$html .= '<a href="http://hdl.handle.net/' . $identifier->id . '" target="_new"><i class="icon-external-link"></i>hdl.handle.net/' . $identifier->id . '</a>';
+						echo '<a href="http://hdl.handle.net/' . $identifier->id . '" target="_new"><i class="icon-external-link"></i>hdl.handle.net/' . $identifier->id . '</a>';
 						break;
 
 					case 'jstor':

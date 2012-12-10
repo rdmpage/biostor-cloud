@@ -608,12 +608,20 @@ EOT;
 				
 			case 'biostor':
 				$html .= '<li><a href="http://biostor.org/reference/' . $v . '" target="_new"><i class="icon-external-link"></i>biostor.org/reference/' . $v . '</a></li>';
+				break;	
+				
+			case 'cinii':
+				$html .= '<li><a href="http://ci.nii.ac.jp/naid/' . $v . '" target="_new"><i class="icon-external-link"></i>ci.nii.ac.jp/naid/' . $v . '</a></li>';
 				break;				
 
 			case 'doi':
 				$html .= '<li><a href="http://dx.doi.org/' . $v . '" target="_new"><i class="icon-external-link"></i>dx.doi.org/' . $v . '</a></li>';
 				break;
-
+				
+			case 'handle':
+				$html .= '<li><a href="http://hdl.handle.net/' . $v . '" target="_new"><i class="icon-external-link"></i>hdl.handle.net/' . $v . '</a></li>';
+				break;
+				
 			case 'jstor':
 				$html .= '<li><a href="http://ww.jstor.org/stable/' . $v . '" target="_new"><i class="icon-external-link"></i>www.jstor.org/stable/' . $v . '</a></li>';
 				break;
@@ -857,15 +865,23 @@ echo '<!DOCTYPE html>
 				switch ($identifier->type)
 				{
 					case 'biostor':
-						echo '<a href="http://biostor.org/reference/' . $identifier->id . '" target="_new"><i class="icon-external-link"></i>biostor.org/reference/' . $identifier->id . '</a></li>';
+						echo '<a href="http://biostor.org/reference/' . $identifier->id . '" target="_new"><i class="icon-external-link"></i>biostor.org/reference/' . $identifier->id . '</a>';
 						break;
+						
+					case 'cinii':
+						$html .= '<a href="http://ci.nii.ac.jp/naid/' . $identifier->id . '" target="_new"><i class="icon-external-link"></i>ci.nii.ac.jp/naid/' . $identifier->id . '</a>';
+						break;										
 	
 					case 'doi':
-						echo '<a href="http://dx.doi.org/' . $identifier->id . '" target="_new"><i class="icon-external-link"></i>doi.dx.org/' . $identifier->id . '</a></li>';
+						echo '<a href="http://dx.doi.org/' . $identifier->id . '" target="_new"><i class="icon-external-link"></i>doi.dx.org/' . $identifier->id . '</a>';
+						break;
+					
+					case 'handle':
+						$html .= '<a href="http://hdl.handle.net/' . $identifier->id . '" target="_new"><i class="icon-external-link"></i>hdl.handle.net/' . $identifier->id . '</a>';
 						break;
 
 					case 'jstor':
-						echo '<a href="http://www.jstor.org/stable/' . $identifier->id . '" target="_new"><i class="icon-external-link"></i>www.jstor.org/stable/' . $identifier->id . '</a></li>';
+						echo '<a href="http://www.jstor.org/stable/' . $identifier->id . '" target="_new"><i class="icon-external-link"></i>www.jstor.org/stable/' . $identifier->id . '</a>';
 						break;
 						
 					default:

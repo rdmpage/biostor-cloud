@@ -336,13 +336,16 @@ function parse_openurl($params, &$context_object)
 	}		
 	
 	// Author array might not be populated, in which case add author from aulast and aufirst fields
-	if ((count($context_object->referent->author) == 0) && (isset($context_object->referent->aulast) && isset($context_object->referent->aufirst)))
+	if (isset($context_object->referent->author)
 	{
-		$author = new stdClass();
-		$author->surname = $context_object->referent->aulast;
-		$author->forename = $context_object->referent->aufirst;
-		$context_object->referent->author[] = $author;
-	}	
+		if ((count($context_object->referent->author) == 0) && (isset($context_object->referent->aulast) && isset($context_object->referent->aufirst)))
+		{
+			$author = new stdClass();
+			$author->surname = $context_object->referent->aulast;
+			$author->forename = $context_object->referent->aufirst;
+			$context_object->referent->author[] = $author;
+		}	
+	}
 	
 	// Use aulast and aufirst to ensure first author name properly parsed
 	if (isset($context_object->referent->aulast) && isset($context_object->referent->aufirst))

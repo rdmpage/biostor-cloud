@@ -752,175 +752,182 @@ echo '<!DOCTYPE html>
 	
 	//print_r($obj);
 	
-	$total_rows = $obj->total_rows;
-	$bookmark = $obj->bookmark;
-	
-	echo '<h3>' . $total_rows . ' hit(s)' . '</h3>';
-	
-	
-	if ($total_rows > $rows_per_page)
+	if (isset($obj->error))
 	{
-		echo '<p><a class="btn" href="?q=' . urlencode($q) . '&bookmark=' . $bookmark . '">More »</a></p>';
+		echo '<h3>Error</h3>';
+		echo '<p>' . $obj->reason . '</p>';
 	}
-	
-	//echo '<p>' . "Bookmark=$bookmark " . '<a href="?q=' . urlencode($q) . '&bookmark=' . $bookmark . '">more</a>' . '</p>';
-	
-	
-	echo '<table class="table">';
-	echo '<thead>';
-	echo '</thead>';
-	echo '<tbody>';
-	foreach ($obj->rows as $row)
-	{
-		$hit = $row->fields->default;
-		$reference = $row->doc;
-		$reference->id = $row->id;
+	else
+	{	
+		$total_rows = $obj->total_rows;
+		$bookmark = $obj->bookmark;
 		
-
-		echo '<tr>';
+		echo '<h3>' . $total_rows . ' hit(s)' . '</h3>';
 		
-		echo '<td style="text-align:center;width:100px;">';
-		if (isset($reference->thumbnail))
+		
+		if ($total_rows > $rows_per_page)
 		{
-			echo '<img style="box-shadow:2px 2px 2px #ccc;width:64px;" src="' . $reference->thumbnail .  '">';								
+			echo '<p><a class="btn" href="?q=' . urlencode($q) . '&bookmark=' . $bookmark . '">More »</a></p>';
 		}
-		echo '</td>';
 		
-		echo '<td class="item-data">';
-		
-		//echo $row->order[0];
+		//echo '<p>' . "Bookmark=$bookmark " . '<a href="?q=' . urlencode($q) . '&bookmark=' . $bookmark . '">more</a>' . '</p>';
 		
 		
-		//echo '<p class="lead">';
-		echo '<p style="font-size:21px;font-weight:200;line-height:30px;">';
-		echo '<a href="id/' . $reference->id . '">' . $reference->title . '</a>';
-		echo '</p>';
-		
-		echo '<div>';
-		
-		if (isset($reference->year))
+		echo '<table class="table">';
+		echo '<thead>';
+		echo '</thead>';
+		echo '<tbody>';
+		foreach ($obj->rows as $row)
 		{
-			echo 'Published in <b>' . $reference->year . '</b>';
-		}
-		if (isset($reference->journal))
-		{
-			$issn = '';
-			if (isset($reference->journal->identifier))
+			$hit = $row->fields->default;
+			$reference = $row->doc;
+			$reference->id = $row->id;
+			
+	
+			echo '<tr>';
+			
+			echo '<td style="text-align:center;width:100px;">';
+			if (isset($reference->thumbnail))
 			{
-				foreach ($reference->journal->identifier as $identifier)
+				echo '<img style="box-shadow:2px 2px 2px #ccc;width:64px;" src="' . $reference->thumbnail .  '">';								
+			}
+			echo '</td>';
+			
+			echo '<td class="item-data">';
+			
+			//echo $row->order[0];
+			
+			
+			//echo '<p class="lead">';
+			echo '<p style="font-size:21px;font-weight:200;line-height:30px;">';
+			echo '<a href="id/' . $reference->id . '">' . $reference->title . '</a>';
+			echo '</p>';
+			
+			echo '<div>';
+			
+			if (isset($reference->year))
+			{
+				echo 'Published in <b>' . $reference->year . '</b>';
+			}
+			if (isset($reference->journal))
+			{
+				$issn = '';
+				if (isset($reference->journal->identifier))
 				{
-					if ($identifier->type == 'issn')
+					foreach ($reference->journal->identifier as $identifier)
 					{
-						$issn = $identifier->id;
+						if ($identifier->type == 'issn')
+						{
+							$issn = $identifier->id;
+						}
 					}
 				}
-			}
-			if ($issn != '')
-			{
-				echo ' in <b><a href="issn/' . $issn . '">' . $reference->journal->name . '</a></b>';			
-			}
-			else
-			{
-				echo ' in <b>' . $reference->journal->name . '</b>';
-			}
-			if (isset($reference->journal->volume))
-			{
-				echo ', volume <b>' . $reference->journal->volume . '</b>';
-			}
-			if (isset($reference->journal->issue))
-			{
-				echo ', issue <b>' . $reference->journal->issue . '</b>';
-			}		
-			if (isset($reference->journal->pages))
-			{
-				echo ', on pages <b>' . str_replace('--', '-', $reference->journal->pages) . '</b>';
-			}
-		}
-		else
-		{
-			// not a journal...
-			echo ', on pages <b>' . str_replace('--', '-', $reference->pages) . '</b>';
-		}
-		
-		
-		
-		echo '</div>';
-		
-		echo '<div>';
-		
-		if (isset($reference->author))
-		{
-			$authors = array();
-			foreach ($reference->author as $author)
-			{
-				if (isset($author->firstname))
+				if ($issn != '')
 				{
-					$authors[] = $author->lastname . ' ' . $author->firstname;
+					echo ' in <b><a href="issn/' . $issn . '">' . $reference->journal->name . '</a></b>';			
 				}
 				else
 				{
-					$authors[] = $author->name;
+					echo ' in <b>' . $reference->journal->name . '</b>';
 				}
-			
-			}
-			echo join(', ', $authors);
-		}
-		
-		
-		echo '</div>';
-		
-		// COinS
-		echo reference_to_coins($reference);
-		
-		// Links
-		echo '<div class="item-links">';
-		
-		//echo '<a href="">cite</a>';
-				
-		if (isset($reference->identifier))
-		{
-			foreach ($reference->identifier as $identifier)
-			{
-				switch ($identifier->type)
+				if (isset($reference->journal->volume))
 				{
-					case 'biostor':
-						echo '<a href="http://biostor.org/reference/' . $identifier->id . '" target="_new"><i class="icon-external-link"></i>biostor.org/reference/' . $identifier->id . '</a>';
-						break;
-						
-					case 'cinii':
-						echo '<a href="http://ci.nii.ac.jp/naid/' . $identifier->id . '" target="_new"><i class="icon-external-link"></i>ci.nii.ac.jp/naid/' . $identifier->id . '</a>';
-						break;										
-	
-					case 'doi':
-						echo '<a href="http://dx.doi.org/' . $identifier->id . '" target="_new"><i class="icon-external-link"></i>doi.dx.org/' . $identifier->id . '</a>';
-						break;
-					
-					case 'handle':
-						echo '<a href="http://hdl.handle.net/' . $identifier->id . '" target="_new"><i class="icon-external-link"></i>hdl.handle.net/' . $identifier->id . '</a>';
-						break;
-
-					case 'jstor':
-						echo '<a href="http://www.jstor.org/stable/' . $identifier->id . '" target="_new"><i class="icon-external-link"></i>www.jstor.org/stable/' . $identifier->id . '</a>';
-						break;
-						
-					default:
-						break;
+					echo ', volume <b>' . $reference->journal->volume . '</b>';
+				}
+				if (isset($reference->journal->issue))
+				{
+					echo ', issue <b>' . $reference->journal->issue . '</b>';
+				}		
+				if (isset($reference->journal->pages))
+				{
+					echo ', on pages <b>' . str_replace('--', '-', $reference->journal->pages) . '</b>';
 				}
 			}
-		}
-		echo '</div>';
+			else
+			{
+				// not a journal...
+				echo ', on pages <b>' . str_replace('--', '-', $reference->pages) . '</b>';
+			}
+			
+			
+			
+			echo '</div>';
+			
+			echo '<div>';
+			
+			if (isset($reference->author))
+			{
+				$authors = array();
+				foreach ($reference->author as $author)
+				{
+					if (isset($author->firstname))
+					{
+						$authors[] = $author->lastname . ' ' . $author->firstname;
+					}
+					else
+					{
+						$authors[] = $author->name;
+					}
+				
+				}
+				echo join(', ', $authors);
+			}
+			
+			
+			echo '</div>';
+			
+			// COinS
+			echo reference_to_coins($reference);
+			
+			// Links
+			echo '<div class="item-links">';
+			
+			//echo '<a href="">cite</a>';
+					
+			if (isset($reference->identifier))
+			{
+				foreach ($reference->identifier as $identifier)
+				{
+					switch ($identifier->type)
+					{
+						case 'biostor':
+							echo '<a href="http://biostor.org/reference/' . $identifier->id . '" target="_new"><i class="icon-external-link"></i>biostor.org/reference/' . $identifier->id . '</a>';
+							break;
+							
+						case 'cinii':
+							echo '<a href="http://ci.nii.ac.jp/naid/' . $identifier->id . '" target="_new"><i class="icon-external-link"></i>ci.nii.ac.jp/naid/' . $identifier->id . '</a>';
+							break;										
 		
-		echo '</td>';
-		echo '</tr>';
-	}
-	echo '</tbody>';
-	echo '</table>';
+						case 'doi':
+							echo '<a href="http://dx.doi.org/' . $identifier->id . '" target="_new"><i class="icon-external-link"></i>doi.dx.org/' . $identifier->id . '</a>';
+							break;
+						
+						case 'handle':
+							echo '<a href="http://hdl.handle.net/' . $identifier->id . '" target="_new"><i class="icon-external-link"></i>hdl.handle.net/' . $identifier->id . '</a>';
+							break;
 	
-	if ($total_rows > $rows_per_page)
-	{
-		echo '<p><a class="btn" href="?q=' . urlencode($q) . '&bookmark=' . $bookmark . '">More »</a></p>';
-	}
-	
+						case 'jstor':
+							echo '<a href="http://www.jstor.org/stable/' . $identifier->id . '" target="_new"><i class="icon-external-link"></i>www.jstor.org/stable/' . $identifier->id . '</a>';
+							break;
+							
+						default:
+							break;
+					}
+				}
+			}
+			echo '</div>';
+			
+			echo '</td>';
+			echo '</tr>';
+		}
+		echo '</tbody>';
+		echo '</table>';
+		
+		if ($total_rows > $rows_per_page)
+		{
+			echo '<p><a class="btn" href="?q=' . urlencode($q) . '&bookmark=' . $bookmark . '">More »</a></p>';
+		}
+	}		
 	
 	echo '</div>
 </body>

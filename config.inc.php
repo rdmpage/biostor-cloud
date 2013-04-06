@@ -53,7 +53,10 @@ $config['couchdb_options'] = array(
 // HTTP proxy
 if ($config['proxy_name'] != '')
 {
-	$config['couchdb_options']['proxy'] = $config['proxy_name'] . ':' . $config['proxy_port'];
+	if ($config['couchdb_options']['host'] != 'localhost')
+	{
+		$config['couchdb_options']['proxy'] = $config['proxy_name'] . ':' . $config['proxy_port'];
+	}
 }
 
 ?>

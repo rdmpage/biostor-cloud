@@ -33,7 +33,8 @@ $ids = array(
 
 $ids = array(20000);
 
-for ($id = 1; $id < 1000;$id++)
+// to do...
+for ($id = 13647; $id <= 13647;$id++)
 //foreach ($ids as $id)
 {
 	
